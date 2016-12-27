@@ -6,8 +6,8 @@
 ## LoadOnDemand: 0
 ## SavedVariables: LootTrackerSettings
 ## - SavedVariablesPerCharacter: LootTrackerSettingsChar
-## X-Category: 
-## X-Credits: 
+## OptionalDeps: Ace3
+## X-Embeds: Ace3
 ## X-eMail: roctom@gmail.com
 ## X-Website: http://github.com/tomzx/loot-tracker
 ## X-License: MIT
@@ -16,3 +16,5 @@
 Libs\Libs.xml
 
 Localization\Localization.xml
+
+Src\Src.xml

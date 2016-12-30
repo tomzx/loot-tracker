@@ -4,8 +4,7 @@
 ## Author: tomzx
 ## DefaultState: enabled
 ## LoadOnDemand: 0
-## SavedVariables: LootTrackerSettings
-## - SavedVariablesPerCharacter: LootTrackerSettingsChar
+## SavedVariables: LootTrackerDB
 ## OptionalDeps: Ace3
 ## X-Embeds: Ace3
 ## X-eMail: roctom@gmail.com

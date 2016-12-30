@@ -22,8 +22,14 @@ function MainWindow:Initialize()
 	f:SetTitle("Loot Tracker")
 	-- f:SetStatusText("Status Bar")
 	f:SetLayout("Flow")
-	f:SetWidth(325)
-	f:SetHeight(375)
+	-- f:SetWidth(325)
+	-- f:SetHeight(375)
+	f:SetStatusTable(LootTrackerDB.mainWindowStatus or {
+		height = 375,
+		width = 325,
+		top = 375,
+		left = 0,
+	})
 	-- TODO(roctom@gmail.com): Disable resizing
 	-- Create a button
 	self.toggleButton = AceGUI:Create("Button")
@@ -45,6 +51,8 @@ function MainWindow:Initialize()
 	self.timerLabel:SetWidth(100)
 	self.timerLabel:SetText(self:getFormattedTime(0))
 	f:AddChild(self.timerLabel)
+
+	self:RenderSessionHeader(f)
 
 	local scrollContainer = AceGUI:Create("SimpleGroup")
 	scrollContainer:SetFullWidth(true)
@@ -69,15 +77,14 @@ function MainWindow:Refresh()
 end
 
 function MainWindow:RenderSession(session)
+	self.scrollFrame:ReleaseChildren()
+
 	if not self.session then
 		return
 	end
 
 	debug("Rendering session")
 	debug(AceSerializer:Serialize(self.session))
-
-	self.scrollFrame:ReleaseChildren()
-	self:RenderSessionHeader()
 
 	local duration = max(1, self.duration)
 	for index, loot in pairs(self.session.Seen) do
@@ -116,7 +123,7 @@ function MainWindow:RenderSession(session)
 	end
 end
 
-function MainWindow:RenderSessionHeader()
+function MainWindow:RenderSessionHeader(frame)
 	local g = AceGUI:Create("SimpleGroup")
 	g:SetLayout("Flow")
 
@@ -145,7 +152,7 @@ function MainWindow:RenderSessionHeader()
 	l:SetWidth(50)
 	g:AddChild(l)
 
-	self.scrollFrame:AddChild(g)
+	frame:AddChild(g)
 end
 
 function MainWindow:ToggleTimer()
@@ -186,6 +193,8 @@ function MainWindow:ResetTimer()
 		return
 	end
 	SessionManager:Stop(self.session)
+	self.session = nil
+	self:Refresh()
 	debug("Reset! " .. time())
 	self.startTime = nil
 	self.duration = 0

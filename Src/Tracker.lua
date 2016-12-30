@@ -5,7 +5,7 @@ Tracker = AceEvent:Embed(LootTracker)
 
 function Tracker:Initialize()
 	events = {
-		"LOOT_OPENED",
+		"LOOT_READY",
 		"LOOT_CLOSED",
 	}
 
@@ -15,8 +15,8 @@ function Tracker:Initialize()
 	end
 end
 
-function Tracker:LOOT_OPENED()
-	debug("Loot opened!")
+function Tracker:LOOT_READY()
+	debug("Loot ready!")
 	local numberOfItems = GetNumLootItems()
 
 	for lootSlot = 1, numberOfItems do
